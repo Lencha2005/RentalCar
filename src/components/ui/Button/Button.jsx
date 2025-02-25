@@ -1,9 +1,24 @@
-import React from 'react'
+import clsx from "clsx";
+import css from "./Button.module.css";
 
-const Button = () => {
+const Button = ({
+  variant = "default",
+  type = "button",
+  className,
+  onClick,
+  children,
+}) => {
+  const btnStyle = clsx(
+    css.btn,
+    variant === "default" && css.btnBlue,
+    variant === "loadmore" && css.btnLoadMore,
+    className && className
+  );
   return (
-    <div>Button</div>
-  )
-}
+    <button type={type} className={btnStyle} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
 
-export default Button
+export default Button;

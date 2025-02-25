@@ -1,0 +1,15 @@
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.link {
+  font-weight: 500;
+  color: var(--color-black);
+  transition: color var(--primary-transition);
+  padding: 24px 0;
+}
+
+.active {
+  color: var(--color-blue);
+}

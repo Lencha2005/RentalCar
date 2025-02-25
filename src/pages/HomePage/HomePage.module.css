@@ -1,0 +1,29 @@
+.wrapper {
+  background-image: image-set(
+    url("../../assets/img/bg.png") 1x,
+    url("../../assets/img/bg@2x.png") 2x
+  );
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 436px 328px 60px;
+  margin-top: 4px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  text-align: center;
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+
+.text {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  text-align: center;
+  color: var(--color-white);
+  margin-bottom: 40px;
+}

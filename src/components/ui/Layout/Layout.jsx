@@ -1,9 +1,13 @@
-import React from 'react'
+import { Suspense } from "react";
+import { Header } from "../../Header/Header";
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
-    <div>Layout</div>
-  )
-}
+    <>
+      <Header />
+      <Suspense fallback={null}>{children}</Suspense>
+    </>
+  );
+};
 
-export default Layout
+export default Layout;
