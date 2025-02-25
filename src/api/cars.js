@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
 
 export const getCars = async () => {
   const response = await axiosInstance.get("/cars");
-  console.log("response: ", response);
   return response.data;
 };
 

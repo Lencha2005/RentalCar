@@ -6,7 +6,7 @@ const Logo = () => {
     <div>
       <Link to="/" className={css.logo}>
         <svg width={104} height={16}>
-          <use href="/logo.svg#icon-logo"></use>
+          <use href="/sprite.svg#icon-logo"></use>
         </svg>
       </Link>
     </div>

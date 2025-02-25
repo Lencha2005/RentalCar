@@ -14,32 +14,41 @@ const handlePending = (state) => {
 const INITIAL_STATE = {
   items: null,
   isLoading: false,
-  errror: null,
-  selectedCars: null,
+  error: null,
+  favoriteCars: [],
 };
 
 const carsSlice = createSlice({
   name: "cars",
   initialState: INITIAL_STATE,
   reducers: {
-    setSelectedCars(state, action) {
-      state.selectedCars = action.payload;
+    toggleFavoriteCar(state, action) {
+      const carId = action.payload;
+      if (state.favoriteCars.includes(carId)) {
+        state.favoriteCars = state.favoriteCars.filter((id) => id !== carId);
+      } else {
+        state.favoriteCars.push(carId);
+      }
     },
+    // setfavoriteCars(state, action) {
+    //   state.favoriteCars = action.payload;
+    // },
   },
   extraReducers: (builder) => builder
   .addCase(fetchCars.pending, handlePending)
   .addCase(fetchCars.fulfilled, (state, action) => {
-    state.isLoading = false,
-    state.cars = action.payload;
+    console.log("FETCH CARS PENDING");
+    state.isLoading = false;
+    state.items = action.payload;
   })
   .addCase(fetchCars.rejected, handleRejected)
   .addCase(fetchCarById.pending, handlePending)
   .addCase(fetchCarById.fulfilled, (state, action) => {
-    state.isLoading = false,
-    state.cars = action.payload;
+    state.isLoading = false;
+    state.items = action.payload;
   })
   .addCase(fetchCarById.rejected, handleRejected)
 });
 
 export const carsReducer = carsSlice.reducer;
-export const { setSelectedCars } = carsSlice.actions;
+export const { toggleFavoriteCar } = carsSlice.actions;

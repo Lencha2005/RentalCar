@@ -1,9 +1,7 @@
-import React from 'react'
+import CarsList from "../../components/CarsList/CarsList";
 
 const CatalogPage = () => {
-  return (
-    <div>CatalogPage</div>
-  )
-}
+  return <CarsList />;
+};
 
-export default CatalogPage
+export default CatalogPage;
