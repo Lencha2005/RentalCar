@@ -1,8 +1,10 @@
-import React from 'react'
+import { PropagateLoader } from "react-spinners";
+import css from './Loader.module.css'
+
 
 const Loader = () => {
   return (
-    <div>Loader</div>
+    <PropagateLoader color='#0b44cd' className={css.loader}/>
   )
 }
 
