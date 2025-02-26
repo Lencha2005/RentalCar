@@ -23,7 +23,7 @@ const CarDetails = ({ car }) => {
             <span className={css.locationAddress}>
               {city}, {country}
             </span>
-            <span>Mileage: {car.mileage}</span>
+            <span>Mileage: {car.mileage.toLocaleString("uk-UA")} km</span>
           </div>
           <p className={css.price}>{car.rentalPrice} $</p>
           <p className={css.text}>{car.description}</p>

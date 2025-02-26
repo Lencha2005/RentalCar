@@ -1,9 +1,17 @@
+.wrapper {
+  padding: 84px 120px 124px;
+}
 .list {
   display: flex;
   flex-wrap: wrap;
   gap: 48px 32px;
+  margin-bottom: 80px;
 }
 
 .item {
   width: calc((100% - 3 * 32px) / 4);
+}
+
+.btnLoadMore {
+  padding: 12px 38px;
 }

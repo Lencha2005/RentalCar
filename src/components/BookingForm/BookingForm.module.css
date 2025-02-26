@@ -40,6 +40,7 @@
 }
 .textaria {
   height: 88px;
+  resize: none;
 }
 
 .btnSend {

@@ -1,46 +1,75 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectCars, selectFavoriteCars } from "../../redux/car/selectors";
-
+import { useEffect, useState } from "react";
 import CarCard from "../CarItem/CarItem";
-import { useEffect } from "react";
+import Button from "../ui/Button/Button";
+import {
+  selectCars,
+  selectFavoriteCars,
+  selectTotalPages,
+} from "../../redux/car/selectors";
 import { fetchCars } from "../../redux/car/operetions";
-import css from "./CarsList.module.css";
-import Container from "../ui/Container/Container";
 import { toggleFavoriteCar } from "../../redux/car/slice";
+import css from "./CarsList.module.css";
 
 const CarsList = () => {
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
   const cars = useSelector(selectCars);
   const favoriteCars = useSelector(selectFavoriteCars);
+  const totalPages = useSelector(selectTotalPages);
+  const uniqueCars = cars
+    ? Array.from(new Map(cars.map((car) => [car.id, car])).values())
+    : [];
 
   const handleToggleFavorite = (id) => {
     dispatch(toggleFavoriteCar(id));
   };
 
   useEffect(() => {
-    dispatch(fetchCars());
-  }, [dispatch]);
-console.log("favoriteCars:", favoriteCars);
+    dispatch(fetchCars(page));
+  }, [dispatch, page]);
+
+  const handleLoadMore = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    if (page > 1) {
+      window.scrollBy({
+        top: window.innerHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [cars]);
+
   return (
-    <Container>
+    <div className={css.wrapper}>
       <ul className={css.list}>
-        {Array.isArray(cars) &&
-          cars.length > 0 &&
-          cars.map((car) => {
-            return (
-              <li key={car.id} className={css.item}>
-                <CarCard
-                  car={car}
-                  isFavorite={
-                    Array.isArray(favoriteCars) && favoriteCars.includes(car.id)
-                  }
-                  onToggle={() => handleToggleFavorite(car.id)}
-                />
-              </li>
-            );
-          })}
+        {uniqueCars.map((car) => {
+          return (
+            <li key={car.id} className={css.item}>
+              <CarCard
+                car={car}
+                isFavorite={
+                  Array.isArray(favoriteCars) && favoriteCars.includes(car.id)
+                }
+                onToggle={() => handleToggleFavorite(car.id)}
+              />
+            </li>
+          );
+        })}
       </ul>
-    </Container>
+      {page < totalPages && (
+        <Button
+          className={css.btnLoadMore}
+          variant="loadmore"
+          type="button"
+          onClick={handleLoadMore}
+        >
+          Load more
+        </Button>
+      )}
+    </div>
   );
 };
 

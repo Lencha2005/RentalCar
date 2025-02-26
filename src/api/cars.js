@@ -7,8 +7,8 @@ const axiosInstance = axios.create({
   },
 });
 
-export const getCars = async () => {
-  const response = await axiosInstance.get("/cars");
+export const getCars = async (page = 1, limit = 12) => {
+  const response = await axiosInstance.get(`/cars?page=${page}&limit=${limit}`);
   return response.data;
 };
 

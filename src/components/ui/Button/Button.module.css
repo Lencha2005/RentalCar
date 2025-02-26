@@ -19,6 +19,7 @@
 
 .btnLoadMore {
   border: 1px solid var(--color-light-blue);
+  background-color: transparent;
   color: var(--color-black);
   transition: border-color --primary-transition;
 }

@@ -3,6 +3,7 @@ import { lazy } from "react";
 import Layout from "../ui/Layout/Layout";
 
 import "./App.css";
+import Notification from "../ui/Notification/Notification";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const CatalogPage = lazy(() => import("../../pages/CatalogPage/CatalogPage"));
@@ -11,6 +12,7 @@ const DetailsPage = lazy(() => import("../../pages/DetailsPage/DetailsPage"));
 function App() {
   return (
     <Layout>
+      <Notification/>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/catalog" element={<CatalogPage />} />

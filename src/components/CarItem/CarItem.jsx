@@ -36,7 +36,7 @@ const CarCard = ({ car, isFavorite, onToggle }) => {
         </div>
         <div className={css.details}>
           <span className={css.span}>{car.type}</span>
-          <span>{car.mileage}</span>
+          <span>{car.mileage.toLocaleString("uk-UA")} km</span>
         </div>
       </div>
       <Button
