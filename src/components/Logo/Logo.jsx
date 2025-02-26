@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import css from "./Logo.module.css";
+import Icon from "../ui/Icon/Icon";
 
 const Logo = () => {
   return (
     <div>
       <Link to="/" className={css.logo}>
-        <svg width={104} height={16}>
-          <use href="/sprite.svg#icon-logo"></use>
-        </svg>
+        <Icon name="icon-logo" width={104} height={16} />
       </Link>
     </div>
   );

@@ -1,0 +1,88 @@
+.carWrap {
+  padding-top: 84px;
+  padding-bottom: 104px;
+  display: grid;
+  grid-template-columns: 640px 488px;
+  column-gap: 72px;
+  grid-template-areas:
+    "i t"
+    "i d"
+    "f d";
+}
+
+.img {
+  grid-area: i;
+  border-radius: 19px;
+  width: 640px;
+  height: 512px;
+  margin-bottom: 40px;
+}
+
+.wrapTitle {
+  grid-area: t;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  margin-bottom: 68px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  margin-bottom: 8px;
+}
+
+.id {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--color-grey);
+  margin-left: 16px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.locationAddress {
+  margin-left: 4px;
+  margin-right: 16px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  color: var(--color-light-blue);
+  margin-bottom: 32px;
+}
+
+.wrapperDescription {
+  grid-area: d;
+  display: flex;
+  flex-direction: column;
+  gap: 110px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: start;
+}
+
+.descriptionItem {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.descriptionTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}

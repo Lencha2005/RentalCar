@@ -1,24 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button/Button";
-import css from "./CarCard.module.css";
+import HeartIcon from "../HeartIcon/HeartIcon";
+import css from "./CarItem.module.css";
 
-const CarCard = ({ car }) => {
+const CarCard = ({ car, isFavorite, onToggle }) => {
   const navigate = useNavigate();
   const addressParts = car.address.split(", ");
   const city = addressParts[1];
   const country = addressParts[2];
 
- const handelClick = (id) => {
-navigate(`/catalog/${id}`)
- }
+  const handleClickBtn = () => {
+    navigate(`/catalog/${car.id}`);
+  };
 
   return (
     <div className={css.card}>
       <div className={css.imageContainer}>
         <img src={car.img} alt={car.description} className={css.img} />
-        <svg className={css.svg} width={16} height={16}>
-          <use href="../../../public/sprite.svg#icon-heart"></use>
-        </svg>
+        <button onClick={onToggle} type="button" className={css.btnIcon}>
+          <HeartIcon isFavorite={isFavorite} />
+        </button>
       </div>
       <div className={css.wrapperTitle}>
         <p className={css.title}>
@@ -38,7 +39,11 @@ navigate(`/catalog/${id}`)
           <span>{car.mileage}</span>
         </div>
       </div>
-      <Button className={css.btnReadMore} type="button" onClick={handelClick}>
+      <Button
+        className={css.btnReadMore}
+        type="button"
+        onClick={handleClickBtn}
+      >
         Read more
       </Button>
     </div>

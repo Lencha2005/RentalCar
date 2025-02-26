@@ -1,0 +1,13 @@
+.svg {
+  width: 16px;
+  height: 16px;
+  fill: transparent;
+  cursor: pointer;
+}
+
+.empty {
+  fill: var(--color-light-blue);
+}
+.full {
+  stroke: var(--color-white);
+}
