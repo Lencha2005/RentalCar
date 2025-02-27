@@ -5,6 +5,7 @@ import Button from "../ui/Button/Button";
 import {
   selectCars,
   selectFavoriteCars,
+  selectFilteredCars,
   selectTotalPages,
 } from "../../redux/car/selectors";
 import { fetchCars } from "../../redux/car/operetions";
@@ -15,24 +16,25 @@ const CarsList = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const cars = useSelector(selectCars);
+  const filteredCars = useSelector(selectFilteredCars);
   const favoriteCars = useSelector(selectFavoriteCars);
   const totalPages = useSelector(selectTotalPages);
-  const uniqueCars = cars
-    ? Array.from(new Map(cars.map((car) => [car.id, car])).values())
-    : [];
-
+  const uniqueCars = filteredCars
+  ? Array.from(new Map(filteredCars.map((car) => [car.id, car])).values())
+  : [];
+  
   const handleToggleFavorite = (id) => {
     dispatch(toggleFavoriteCar(id));
   };
-
+  
   useEffect(() => {
     dispatch(fetchCars(page));
   }, [dispatch, page]);
-
+  
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
   };
-
+  
   useEffect(() => {
     if (page > 1) {
       window.scrollBy({
@@ -40,8 +42,9 @@ const CarsList = () => {
         behavior: "smooth",
       });
     }
-  }, [cars]);
-
+  }, [uniqueCars]);
+  console.log('filteredCars: ', filteredCars);
+  
   return (
     <div className={css.wrapper}>
       <ul className={css.list}>

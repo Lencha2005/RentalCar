@@ -3,9 +3,13 @@ import { getCarById, getCars } from "../../api/cars";
 
 export const fetchCars = createAsyncThunk(
   "cars/getCars",
-  async (page = 1, thunkApi) => {
+  async ({ page = 1, filters = {} }, thunkApi) => {
     try {
-      const data = await getCars(page);
+      const hasFilters =
+        filters.brand || filters.rentalPrice || filters.mileage;
+      const queryParams = hasFilters ? filters : {};
+      
+      const data = await getCars(page, 12, queryParams);
       return { cars: data.cars, totalPages: data.totalPages };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

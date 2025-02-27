@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const INITIAL_STATE = {
   // filter: "",
   brand: "",
-  price: null,
+  rentalPrice: null,
   mileage: "",
 };
 
@@ -15,14 +15,14 @@ const filtersSlice = createSlice({
       state.brand = action.payload;
     },
     setPrice(state, action) {
-      state.price = action.payload;
+      state.rentalPrice = action.payload;
     },
     setMileage(state, action) {
       state.mileage = action.payload;
     },
     resetFilters(state) {
       state.brand = "";
-      state.price = null;
+      state.rentalPrice = null;
       state.mileage = "";
     }
     // changeFilter(state, action) {

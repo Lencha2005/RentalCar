@@ -7,8 +7,17 @@ const axiosInstance = axios.create({
   },
 });
 
-export const getCars = async (page = 1, limit = 12) => {
-  const response = await axiosInstance.get(`/cars?page=${page}&limit=${limit}`);
+export const getCars = async (page = 1, limit = 12, filters) => {
+  console.log('before:', {page, limit, ...filters});
+  const response = await axiosInstance.get('/cars', {
+    params: { 
+      page, 
+      limit,
+      ...(filters.brand ? { brand: filters.brand } : {}),
+      ...(filters.rentalPrice ? { rentalPrice: filters.rentalPrice } : {}),
+      ...(filters.mileage ? { mileage: filters.mileage } : {})
+    }});
+    console.log("response.data:", response.data);
   return response.data;
 };
 
