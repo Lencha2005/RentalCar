@@ -6,9 +6,9 @@ export const fetchCars = createAsyncThunk(
   async ({ page = 1, filters = {} }, thunkApi) => {
     try {
       const hasFilters =
-        filters.brand || filters.rentalPrice || filters.mileage;
+        filters.brand || filters.rentalPrice;
       const queryParams = hasFilters ? filters : {};
-      
+
       const data = await getCars(page, 12, queryParams);
       return { cars: data.cars, totalPages: data.totalPages };
     } catch (error) {

@@ -8,6 +8,16 @@ const CarCard = ({ car, isFavorite, onToggle }) => {
   const addressParts = car.address.split(", ");
   const city = addressParts[1];
   const country = addressParts[2];
+  const carType = car.type;
+  const formatCarType =
+    carType.charAt(0).toUpperCase() + carType.slice(1).toLowerCase();
+  const carModel = car.model.split("-").join(" ").split(" ");
+  let modifiedCarModal;
+  if (carModel.length === 1) {
+    modifiedCarModal = carModel[0];
+  } else {
+    modifiedCarModal = `${carModel[0]}  ${carModel[1]}`;
+  }
 
   const handleClickBtn = () => {
     navigate(`/catalog/${car.id}`);
@@ -23,7 +33,8 @@ const CarCard = ({ car, isFavorite, onToggle }) => {
       </div>
       <div className={css.wrapperTitle}>
         <p className={css.title}>
-          {car.brand} <span className={css.model}>{car.model}</span>, {car.year}
+          {car.brand} <span className={css.model}>{modifiedCarModal}</span>,{" "}
+          {car.year}
         </p>
         <p className={css.title}>{car.rentalPrice} $</p>
       </div>
@@ -35,7 +46,7 @@ const CarCard = ({ car, isFavorite, onToggle }) => {
           <span className={css.span}>{car.rentalCompany}</span>
         </div>
         <div className={css.details}>
-          <span className={css.span}>{car.type}</span>
+          <span className={css.span}>{formatCarType}</span>
           <span>{car.mileage.toLocaleString("uk-UA")} km</span>
         </div>
       </div>

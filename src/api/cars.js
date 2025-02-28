@@ -8,16 +8,13 @@ const axiosInstance = axios.create({
 });
 
 export const getCars = async (page = 1, limit = 12, filters) => {
-  console.log('before:', {page, limit, ...filters});
-  const response = await axiosInstance.get('/cars', {
-    params: { 
-      page, 
-      limit,
-      ...(filters.brand ? { brand: filters.brand } : {}),
-      ...(filters.rentalPrice ? { rentalPrice: filters.rentalPrice } : {}),
-      ...(filters.mileage ? { mileage: filters.mileage } : {})
-    }});
-    console.log("response.data:", response.data);
+  const queryParams = {
+    page,
+    limit,
+    ...(filters.brand ? { brand: filters.brand } : {}),
+    ...(filters.rentalPrice ? { rentalPrice: filters.rentalPrice } : {}),
+  };
+  const response = await axiosInstance.get("/cars", { params: queryParams });
   return response.data;
 };
 
@@ -25,3 +22,8 @@ export const getCarById = async (id) => {
   const response = await axiosInstance.get(`/cars/${id}`);
   return response.data;
 };
+
+export const getBrands = async () => {
+  const response = await axiosInstance.get('/brands');
+return response.data
+}

@@ -12,15 +12,14 @@ const handleRejected = (state, action) => {
 };
 
 const savedFavorites = localStorage.getItem("favoriteCars");
-// const parsedFavorites = JSON.parse(savedFavorites);
 
 const INITIAL_STATE = {
   items: [],
+  favoriteCars: savedFavorites ? JSON.parse(savedFavorites) : [],
+  selectedCar: null,
+  totalPages: null,
   isLoading: false,
   error: null,
-  favoriteCars:  savedFavorites ? JSON.parse(savedFavorites) : [],
-  selectedCar: null,
-  totalPages:null,
 };
 
 const carsSlice = createSlice({
@@ -43,8 +42,12 @@ const carsSlice = createSlice({
       .addCase(fetchCars.pending, handlePending)
       .addCase(fetchCars.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = [...state.items, ...action.payload.cars];
         state.totalPages = action.payload.totalPages;
+        if (action.meta.arg.page === 1) {
+          state.items = action.payload.cars;
+        } else {
+          state.items = [...state.items, ...action.payload.cars];
+        }
       })
       .addCase(fetchCars.rejected, handleRejected)
       .addCase(fetchCarById.pending, handlePending)

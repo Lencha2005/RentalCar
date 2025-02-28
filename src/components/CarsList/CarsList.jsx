@@ -1,40 +1,49 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import CarCard from "../CarItem/CarItem";
-import Button from "../ui/Button/Button";
 import {
-  selectCars,
   selectFavoriteCars,
   selectFilteredCars,
   selectTotalPages,
 } from "../../redux/car/selectors";
+import { selectMileage } from "../../redux/filter/selectors";
 import { fetchCars } from "../../redux/car/operetions";
 import { toggleFavoriteCar } from "../../redux/car/slice";
+import CarCard from "../CarItem/CarItem";
+import Button from "../ui/Button/Button";
+import FilterForm from "../FilterForm/FilterForm";
 import css from "./CarsList.module.css";
 
 const CarsList = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
-  const cars = useSelector(selectCars);
-  const filteredCars = useSelector(selectFilteredCars);
+  const [filters, setFilters] = useState({});
+  const cars = useSelector(selectFilteredCars);
   const favoriteCars = useSelector(selectFavoriteCars);
   const totalPages = useSelector(selectTotalPages);
-  const uniqueCars = filteredCars
-  ? Array.from(new Map(filteredCars.map((car) => [car.id, car])).values())
-  : [];
-  
+  const mileage = useSelector(selectMileage);
+  const uniqueCars = cars
+    ? Array.from(new Map(cars.map((car) => [car.id, car])).values())
+    : [];
+
   const handleToggleFavorite = (id) => {
     dispatch(toggleFavoriteCar(id));
   };
-  
-  useEffect(() => {
-    dispatch(fetchCars(page));
-  }, [dispatch, page]);
-  
+
   const handleLoadMore = () => {
     setPage((prev) => prev + 1);
   };
-  
+
+  const handleFilter = (newFilters) => {
+    setFilters(newFilters);
+    setPage(1);
+    dispatch(fetchCars({ page: 1, filters: newFilters }));
+  };
+
+  useEffect(() => {
+    const fullFilters = { ...filters, mileage };
+    dispatch(fetchCars({ page, filters: fullFilters }));
+  }, [dispatch, page, filters, mileage]);
+
   useEffect(() => {
     if (page > 1) {
       window.scrollBy({
@@ -42,11 +51,11 @@ const CarsList = () => {
         behavior: "smooth",
       });
     }
-  }, [uniqueCars]);
-  console.log('filteredCars: ', filteredCars);
-  
+  }, [cars]);
+
   return (
     <div className={css.wrapper}>
+      <FilterForm onFilter={handleFilter} />
       <ul className={css.list}>
         {uniqueCars.map((car) => {
           return (
