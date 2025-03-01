@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCarById, fetchCars } from "./operetions";
+import { fetchCarById, fetchCars } from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true;

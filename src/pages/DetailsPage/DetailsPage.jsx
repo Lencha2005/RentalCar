@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCarById } from "../../redux/car/operetions";
-import CarDetails from "../../components/CarDetails/CarDetails";
-import Loader from "../../components/ui/Loader/Loader";
+import { fetchCarById } from "../../redux/car/operations";
 import {
   selectError,
   selectIsLoading,
   selectSelectedCar,
 } from "../../redux/car/selectors";
+import CarDetails from "../../components/CarDetails/CarDetails";
+import Loader from "../../components/ui/Loader/Loader";
 
 const DetailsPage = () => {
   const { id } = useParams();

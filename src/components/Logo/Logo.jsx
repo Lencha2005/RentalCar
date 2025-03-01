@@ -4,7 +4,7 @@ import Icon from "../ui/Icon/Icon";
 const Logo = () => {
   return (
     <div>
-      <Link to="/" >
+      <Link to="/">
         <Icon name="icon-logo" width={104} height={16} />
       </Link>
     </div>

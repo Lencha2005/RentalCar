@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
+  selectError,
   selectFavoriteCars,
   selectFilteredCars,
+  selectIsLoading,
   selectTotalPages,
 } from "../../redux/car/selectors";
 import { selectMileage } from "../../redux/filter/selectors";
-import { fetchCars } from "../../redux/car/operetions";
+import { fetchCars } from "../../redux/car/operations";
 import { toggleFavoriteCar } from "../../redux/car/slice";
 import CarCard from "../CarItem/CarItem";
 import Button from "../ui/Button/Button";
@@ -17,10 +19,14 @@ const CarsList = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({});
+
   const cars = useSelector(selectFilteredCars);
   const favoriteCars = useSelector(selectFavoriteCars);
   const totalPages = useSelector(selectTotalPages);
   const mileage = useSelector(selectMileage);
+  const error = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
+
   const uniqueCars = cars
     ? Array.from(new Map(cars.map((car) => [car.id, car])).values())
     : [];
@@ -57,8 +63,14 @@ const CarsList = () => {
     <div className={css.wrapper}>
       <FilterForm onFilter={handleFilter} />
       <ul className={css.list}>
-        {uniqueCars.map((car) => {
-          return (
+        {error ? (
+          <p className={css.errorMessage}>
+            Something went wrong. Please try again.
+          </p>
+        ) : isLoading ? (
+          <></>
+        ) : uniqueCars.length > 0 ? (
+          uniqueCars.map((car) => (
             <li key={car.id} className={css.item}>
               <CarCard
                 car={car}
@@ -68,10 +80,14 @@ const CarsList = () => {
                 onToggle={() => handleToggleFavorite(car.id)}
               />
             </li>
-          );
-        })}
+          ))
+        ) : (
+          <p className={css.errorMessage}>
+            No cars found. Try changing the filters.
+          </p>
+        )}
       </ul>
-      {page < totalPages && (
+      {!isLoading && uniqueCars.length > 0 && page < totalPages && (
         <Button
           className={css.btnLoadMore}
           variant="loadmore"

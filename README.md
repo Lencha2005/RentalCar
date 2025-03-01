@@ -1,8 +1,27 @@
-# React + Vite
+# Назва проєкту: Car Rental
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Опис
+Car Rental — це веб-додаток для перегляду та фільтрації доступних автомобілів для оренди. Користувачі можуть фільтрувати автомобілі за різними параметрами, такими як марка, ціна оренди та пробіг. Додаток також дозволяє користувачам зберігати свої улюблені автомобілі для подальшого перегляду.
 
-Currently, two official plugins are available:
+## Основні функції
+- Перегляд автомобілів із можливістю фільтрації за маркою, ціною оренди та пробігом.
+- Збереження улюблених автомобілів.
+- Завантаження додаткових автомобілів при прокручуванні сторінки.
+- Актуалізація результатів при зміні фільтрів.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Інструкції з установки та використання
+
+1. Клонувати репозиторій:
+   ```bash
+   git clone https://github.com/your-username/car-rental.git
+
+2. Встановлення залежностей:
+    npm install
+
+3. Запустити додаток в режимі розробки:
+    npm run dev
+
+Информація про автора:
+Проект розробила Бондар Олена.
+GitHub: https://github.com/Lencha2005
+Ви можете звертатися через електрону пошту: lencha_2005@gmail.com

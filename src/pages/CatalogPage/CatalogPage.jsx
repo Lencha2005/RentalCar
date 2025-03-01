@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import CarsList from "../../components/CarsList/CarsList";
 import { selectError, selectIsLoading } from "../../redux/car/selectors";
+import CarsList from "../../components/CarsList/CarsList";
 import Loader from "../../components/ui/Loader/Loader";
 import css from "./CatalogPage.module.css";
 

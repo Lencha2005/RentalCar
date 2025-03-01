@@ -12,3 +12,7 @@
 .btnLoadMore {
   padding: 12px 38px;
 }
+
+.errorMessage {
+  margin: 0 auto;
+}
