@@ -1,34 +1,30 @@
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCars } from "../../redux/car/operations";
-import { setBrand, setMileage, setRentalPrice } from "../../redux/filter/slice";
+import { fetchBrands, fetchCars } from "../../redux/car/operations";
+import { setFilter } from "../../redux/filter/slice";
 import { useEffect, useRef, useState } from "react";
-import {
-  selectBrand,
-  selectBrands,
-  selectMileage,
-  selectRentalPrice,
-} from "../../redux/filter/selectors";
-import { fetchBrands } from "../../redux/filter/operations";
+import { selectBrands } from "../../redux/car/selectors";
+
 import CustomSelector from "../ui/CustomSelector/CustomSelector";
 import Button from "../ui/Button/Button";
 import css from "./FilterForm.module.css";
 
-const FilterForm = ({ onFilter }) => {
+const FilterForm = () => {
   const dispatch = useDispatch();
   const filterRef = useRef(null);
 
   const allBrands = useSelector(selectBrands);
-  const brand = useSelector(selectBrand);
-  const rentalPrice = useSelector(selectRentalPrice);
-  const mileage = useSelector(selectMileage);
 
-  const [localMileage, setLocalMileage] = useState({ from: "", to: "" });
   const [openSelector, setOpenSelector] = useState(null);
+  const [localFilters, setLocalFilters] = useState({
+    brand: "",
+    rentalPrice: "",
+    minMileage: "",
+    maxMileage: "",
+  });
 
   useEffect(() => {
     dispatch(fetchBrands());
-    setLocalMileage({ from: mileage.from || "", to: mileage.to || "" });
-  }, [dispatch, mileage]);
+  }, [dispatch]);
 
   //Закриття селекторів
   useEffect(() => {
@@ -63,26 +59,20 @@ const FilterForm = ({ onFilter }) => {
     label: price,
   }));
 
-  const handleMileageChange = (e) => {
-    const { name, value } = e.target;
-    setLocalMileage((prev) => ({
+  const handleChange = (name, value) => {
+    setLocalFilters((prev) => ({
       ...prev,
-      [name]: value.replace(/\D/g, ""), // Лишаємо тільки цифри
+      [name]: name.includes("Mileage")
+        ? Number(value.replace(/\D/g, "")) || ""
+        : value || "",
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setMileage(localMileage));
-
-    const filters = {
-      brand,
-      rentalPrice,
-      mileage: localMileage,
-    };
-    dispatch(setMileage(localMileage));
-    dispatch(fetchCars({ page: 1, filters }));
-    onFilter(filters);
+    setOpenSelector(null);
+    dispatch(setFilter(localFilters));
+    dispatch(fetchCars({ page: 1, filters: localFilters }));
   };
 
   return (
@@ -92,8 +82,8 @@ const FilterForm = ({ onFilter }) => {
         <CustomSelector
           options={brandOptions}
           id="brand"
-          value={brandOptions.find((b) => b.value === brand) || {}}
-          onChange={(val) => dispatch(setBrand(val?.value || null))}
+          value={localFilters.brand}
+          onChange={(val) => handleChange("brand", val)}
           placeholder="Choose a brand"
           isOpen={openSelector === "brand"}
           setOpenSelector={setOpenSelector}
@@ -104,10 +94,10 @@ const FilterForm = ({ onFilter }) => {
         <CustomSelector
           options={priceOptions}
           id="price"
-          value={priceOptions.find((p) => p.value === rentalPrice || null)}
-          onChange={(val) => dispatch(setRentalPrice(val?.value || null))}
+          value={localFilters.rentalPrice}
+          onChange={(val) => handleChange("rentalPrice", val)}
           placeholder="Choose a price"
-          formatValue={(val) => (val ? `To $${val.value}` : "Choose a price")}
+          formatValue={(val) => (val ? `To $${val}` : "Choose a price")}
           isOpen={openSelector === "price"}
           setOpenSelector={setOpenSelector}
         />
@@ -118,24 +108,28 @@ const FilterForm = ({ onFilter }) => {
           <input
             className={`${css.input} ${css.inputMileage}`}
             type="text"
-            name="from"
+            name="minMileage"
             value={
-              localMileage.from
-                ? `From ${Number(localMileage.from).toLocaleString("en-US")}`
+              localFilters.minMileage
+                ? `From ${Number(localFilters.minMileage).toLocaleString(
+                    "en-US"
+                  )}`
                 : "From "
             }
-            onChange={handleMileageChange}
+            onChange={(e) => handleChange("minMileage", e.target.value)}
           />
           <input
             className={`${css.input} ${css.inputMileage}`}
             type="text"
-            name="to"
+            name="maxMileage"
             value={
-              localMileage.to
-                ? `To ${Number(localMileage.to).toLocaleString("en-US")}`
+              localFilters.maxMileage
+                ? `To ${Number(localFilters.maxMileage).toLocaleString(
+                    "en-US"
+                  )}`
                 : "To "
             }
-            onChange={handleMileageChange}
+            onChange={(e) => handleChange("maxMileage", e.target.value)}
           />
         </div>
       </div>

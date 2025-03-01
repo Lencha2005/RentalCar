@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCarById, fetchCars } from "./operations";
+import { fetchBrands, fetchCarById, fetchCars } from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -15,8 +15,10 @@ const savedFavorites = localStorage.getItem("favoriteCars");
 
 const INITIAL_STATE = {
   items: [],
+  brands: [],
   favoriteCars: savedFavorites ? JSON.parse(savedFavorites) : [],
   selectedCar: null,
+  page: 1,
   totalPages: null,
   isLoading: false,
   error: null,
@@ -36,6 +38,9 @@ const carsSlice = createSlice({
       }
       localStorage.setItem("favoriteCars", JSON.stringify(state.favoriteCars));
     },
+    setPage(state, action) {
+      state.page = action.payload;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -44,10 +49,9 @@ const carsSlice = createSlice({
         state.isLoading = false;
         state.totalPages = action.payload.totalPages;
         if (action.meta.arg.page === 1) {
-          state.items = action.payload.cars;
-        } else {
-          state.items = [...state.items, ...action.payload.cars];
+          state.items = [];
         }
+        state.items = [...state.items, ...action.payload.cars];
       })
       .addCase(fetchCars.rejected, handleRejected)
       .addCase(fetchCarById.pending, handlePending)
@@ -55,8 +59,14 @@ const carsSlice = createSlice({
         state.isLoading = false;
         state.selectedCar = action.payload;
       })
-      .addCase(fetchCarById.rejected, handleRejected),
+      .addCase(fetchCarById.rejected, handleRejected)
+      .addCase(fetchBrands.pending, handlePending)
+      .addCase(fetchBrands.fulfilled, (state, action) => {
+        state.brands = action.payload;
+        state.error = null;
+      })
+      .addCase(fetchBrands.rejected, handleRejected),
 });
 
 export const carsReducer = carsSlice.reducer;
-export const { toggleFavoriteCar } = carsSlice.actions;
+export const { toggleFavoriteCar, setPage } = carsSlice.actions;

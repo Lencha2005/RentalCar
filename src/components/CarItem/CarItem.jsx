@@ -33,7 +33,7 @@ const CarCard = ({ car, isFavorite, onToggle }) => {
       </div>
       <div className={css.wrapperTitle}>
         <p className={css.title}>
-          {car.brand} <span className={css.model}>{modifiedCarModal}</span>,{" "}
+          {car.brand} <span className={css.model}>{modifiedCarModal}</span>,
           {car.year}
         </p>
         <p className={css.title}>{car.rentalPrice} $</p>

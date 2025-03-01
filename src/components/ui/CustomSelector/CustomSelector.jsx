@@ -12,7 +12,7 @@ const CustomSelector = ({
   setOpenSelector,
 }) => {
   const handleSelect = (option) => {
-    onChange(option);
+    onChange(option.value);
     setOpenSelector(null);
   };
 
@@ -23,7 +23,7 @@ const CustomSelector = ({
   return (
     <div className={css.selectWrapper}>
       <div className={css.select} onClick={handleToggle}>
-        {formatValue ? formatValue(value) : value?.label || placeholder}
+        {formatValue ? formatValue(value) : value || placeholder}
         <Icon name="icon-chevron" className={css.selectIcon} />
       </div>
       {isOpen && (

@@ -8,13 +8,9 @@ const axiosInstance = axios.create({
 });
 
 export const getCars = async (page = 1, limit = 12, filters) => {
-  const queryParams = {
-    page,
-    limit,
-    ...(filters.brand ? { brand: filters.brand } : {}),
-    ...(filters.rentalPrice ? { rentalPrice: filters.rentalPrice } : {}),
-  };
-  const response = await axiosInstance.get("/cars", { params: queryParams });
+  const response = await axiosInstance.get("/cars", {
+    params: { page, limit, ...filters },
+  });
   return response.data;
 };
 

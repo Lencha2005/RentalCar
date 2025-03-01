@@ -1,14 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getCarById, getCars } from "../../api/cars";
+import { getBrands, getCarById, getCars } from "../../api/cars";
 
 export const fetchCars = createAsyncThunk(
   "cars/getCars",
   async ({ page = 1, filters = {} }, thunkApi) => {
     try {
-      const hasFilters = filters.brand || filters.rentalPrice;
-      const queryParams = hasFilters ? filters : {};
-
-      const data = await getCars(page, 12, queryParams);
+      const data = await getCars(page, 12, filters);
       return { cars: data.cars, totalPages: data.totalPages };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
@@ -24,6 +21,18 @@ export const fetchCarById = createAsyncThunk(
       return data;
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchBrands = createAsyncThunk(
+  "filters/fetch",
+  async (_, thunkAPI) => {
+    try {
+      const data = await getBrands();
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
