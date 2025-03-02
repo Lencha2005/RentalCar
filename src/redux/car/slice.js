@@ -11,12 +11,12 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-const savedFavorites = localStorage.getItem("favoriteCars");
+// const savedFavorites = localStorage.getItem("favoriteCars");
 
 const INITIAL_STATE = {
   items: [],
   brands: [],
-  favoriteCars: savedFavorites ? JSON.parse(savedFavorites) : [],
+  favoriteCars: [],
   selectedCar: null,
   page: 1,
   totalPages: null,
@@ -36,7 +36,7 @@ const carsSlice = createSlice({
       } else {
         state.favoriteCars.push(carId);
       }
-      localStorage.setItem("favoriteCars", JSON.stringify(state.favoriteCars));
+      // localStorage.setItem("favoriteCars", JSON.stringify(state.favoriteCars));
     },
     setPage(state, action) {
       state.page = action.payload;

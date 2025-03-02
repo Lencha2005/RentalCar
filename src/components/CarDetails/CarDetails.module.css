@@ -1,5 +1,4 @@
 .carWrap {
-  padding: 84px 120px 104px;
   display: grid;
   grid-template-columns: 640px 488px;
   column-gap: 72px;

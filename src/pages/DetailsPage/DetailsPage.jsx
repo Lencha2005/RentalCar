@@ -9,6 +9,7 @@ import {
 } from "../../redux/car/selectors";
 import CarDetails from "../../components/CarDetails/CarDetails";
 import Loader from "../../components/ui/Loader/Loader";
+import css from "./DetailsPage.module.css"
 
 const DetailsPage = () => {
   const { id } = useParams();
@@ -23,11 +24,11 @@ const DetailsPage = () => {
   }, [dispath, id]);
 
   return (
-    <>
+    <div className={css.wrapper}>
       {car && <CarDetails car={car} />}
       {isLoading && <Loader />}
       {error && <p>Error: {error}</p>}
-    </>
+    </div>
   );
 };
 
