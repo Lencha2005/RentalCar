@@ -11,8 +11,6 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-// const savedFavorites = localStorage.getItem("favoriteCars");
-
 const INITIAL_STATE = {
   items: [],
   brands: [],
