@@ -3,7 +3,7 @@ import Button from "../ui/Button/Button";
 import HeartIcon from "../HeartIcon/HeartIcon";
 import css from "./CarItem.module.css";
 
-const CarCard = ({ car, isFavorite, onToggle }) => {
+const CarItem = ({ car, isFavorite, onToggle }) => {
   const navigate = useNavigate();
   const addressParts = car.address.split(", ");
   const city = addressParts[1];
@@ -61,4 +61,4 @@ const CarCard = ({ car, isFavorite, onToggle }) => {
   );
 };
 
-export default CarCard;
+export default CarItem;

@@ -9,6 +9,7 @@ import {
 } from "../../redux/car/selectors";
 import CarDetails from "../../components/CarDetails/CarDetails";
 import Loader from "../../components/ui/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import css from "./DetailsPage.module.css"
 
 const DetailsPage = () => {
@@ -27,7 +28,7 @@ const DetailsPage = () => {
     <div className={css.wrapper}>
       {car && <CarDetails car={car} />}
       {isLoading && <Loader />}
-      {error && <p>Error: {error}</p>}
+      {error && <ErrorMessage/>}
     </div>
   );
 };

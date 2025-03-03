@@ -10,12 +10,13 @@ import {
 } from "../../redux/car/selectors";
 import { fetchCars } from "../../redux/car/operations";
 import { setPage, toggleFavoriteCar } from "../../redux/car/slice";
-import CarCard from "../CarItem/CarItem";
+import CarItem from "../CarItem/CarItem";
 import Button from "../ui/Button/Button";
 import FilterForm from "../FilterForm/FilterForm";
-import css from "./CarsList.module.css";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { useLocation } from "react-router-dom";
 import { selectFilter } from "../../redux/filter/selectors";
+import css from "./CarsList.module.css";
 
 const CarsList = () => {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const CarsList = () => {
         ) : uniqueCars.length > 0 ? (
           uniqueCars.map((car) => (
             <li key={car.id} className={css.item}>
-              <CarCard
+              <CarItem
                 car={car}
                 isFavorite={
                   Array.isArray(favoriteCars) && favoriteCars.includes(car.id)
@@ -80,9 +81,7 @@ const CarsList = () => {
             </li>
           ))
         ) : (
-          <p className={css.errorMessage}>
-            No cars found. Try changing the filters.
-          </p>
+          <ErrorMessage/>
         )}
       </ul>
       {!isLoading && !error && uniqueCars.length > 0 && page < totalPages && (
