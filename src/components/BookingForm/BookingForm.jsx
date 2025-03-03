@@ -2,24 +2,31 @@ import { useState } from "react";
 import Button from "../ui/Button/Button";
 import toast from "react-hot-toast";
 import css from "./BookingForm.module.css";
+import Calendar from "../Calendar/Calendar";
 
 const BookingForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    date: "",
+    date: null,
     comment: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    console.log("formdata: ", formData);
   };
+
+  const handleDateChange = (date) => {
+    setFormData((prev) => ({ ...prev, date }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     toast.success("Reservation sent successfully!");
-    setFormData({ name: "", email: "", date: "", comment: "" });
+    setFormData({ name: "", email: "", date: null, comment: "" });
   };
+
   return (
     <form className={css.form} onSubmit={handleSubmit}>
       <h2 className={css.title}>Book your car now</h2>
@@ -45,14 +52,12 @@ const BookingForm = () => {
           placeholder="Email"
           required
         />
-        <input
+        <Calendar
           className={css.input}
-          type="text"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          placeholder="Booking date"
+          selectedDate={formData.date}
+          onChange={handleDateChange}
         />
+
         <textarea
           className={`${css.input} ${css.textaria}`}
           type="textarea"
