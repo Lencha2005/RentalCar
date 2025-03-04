@@ -77,7 +77,7 @@ const FilterForm = () => {
 
   return (
     <form className={css.form} onSubmit={handleSubmit} ref={filterRef}>
-      <div>
+      <label>
         <p className={css.labelText}>Car brand</p>
         <CustomSelector
           options={brandOptions}
@@ -88,8 +88,8 @@ const FilterForm = () => {
           isOpen={openSelector === "brand"}
           setOpenSelector={setOpenSelector}
         />
-      </div>
-      <div>
+      </label>
+      <label>
         <p className={css.labelText}>Price / 1hour</p>
         <CustomSelector
           options={priceOptions}
@@ -101,8 +101,8 @@ const FilterForm = () => {
           isOpen={openSelector === "price"}
           setOpenSelector={setOpenSelector}
         />
-      </div>
-      <div>
+      </label>
+      <label>
         <p className={css.labelText}>Car mileage / km</p>
         <div className={css.wrapInputMileage}>
           <input
@@ -132,7 +132,7 @@ const FilterForm = () => {
             onChange={(e) => handleChange("maxMileage", e.target.value)}
           />
         </div>
-      </div>
+      </label>
       <Button className={css.btnSearch} type="submit">
         Search
       </Button>
