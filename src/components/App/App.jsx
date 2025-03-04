@@ -3,7 +3,6 @@ import { lazy, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { resetFilters } from "../../redux/filter/slice";
 
-import "./App.css";
 import Layout from "../ui/Layout/Layout";
 import Notification from "../ui/Notification/Notification";
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
